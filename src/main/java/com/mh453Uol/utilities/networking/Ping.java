@@ -12,17 +12,11 @@ import com.mh453Uol.domain.KeyValuePair;
 public class Ping extends Process {
 	private String ipAddress;
 	private String response;
-	private boolean isValid;
-	private ErrorMessage errors;
+	private boolean isValid = true;
 
 	public Ping(String ipAddress) {
 		this.ipAddress = ipAddress;
-		this.errors = new ErrorMessage();
 		validate();
-	}
-
-	public ErrorMessage getErrors() {
-		return errors;
 	}
 
 	public boolean isValid() {
@@ -31,10 +25,6 @@ public class Ping extends Process {
 
 	public void setValid(boolean isValid) {
 		this.isValid = isValid;
-	}
-
-	public void setErrors(ErrorMessage errors) {
-		this.errors = errors;
 	}
 
 	public String getResponse() {
@@ -103,7 +93,6 @@ public class Ping extends Process {
 
 	public void validate() {
 		if (!InetAddresses.isInetAddress(this.ipAddress)) {
-			errors.addError(new KeyValuePair("ipAddress", "ipAddress is invalid"));
 			isValid = false;
 		}
 	}

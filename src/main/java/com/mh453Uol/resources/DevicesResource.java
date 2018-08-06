@@ -30,10 +30,10 @@ import com.mh453Uol.utilities.networking.SystemProcessExecutor;
 @Path("devices")
 public class DevicesResource {
 	private DeviceService deviceService;
-	
+
 	@Context
 	SecurityContext securityContext;
-	
+
 	public DevicesResource() {
 		deviceService = new DeviceService();
 	}
@@ -52,9 +52,10 @@ public class DevicesResource {
 				device.setHostName(ipInfo.getHostName());
 			} else {
 				// return error since we cant get the details from the network
-				ErrorMessage errorMessage = new ErrorMessage(Arrays.asList(
-						new KeyValuePair("ipAddress", "ipAddress was resolved to " + device.getIpAddress()),
-						new KeyValuePair("host", "host was resolved to " + device.getHostName())));
+				ErrorMessage errorMessage = new ErrorMessage(400, "Bad Request",
+						Arrays.asList(
+								new KeyValuePair("ipAddress", "ipAddress was resolved to " + device.getIpAddress()),
+								new KeyValuePair("host", "host was resolved to " + device.getHostName())));
 
 				return Response.status(Status.BAD_REQUEST).entity(errorMessage).type(MediaType.APPLICATION_JSON)
 						.build();
@@ -64,7 +65,7 @@ public class DevicesResource {
 		if (deviceService.deviceExists(device.getIpAddress())) {
 			// our unique id is the ip address return error since devices are meant to have
 			// unique ips
-			ErrorMessage errorMessage = new ErrorMessage(Arrays.asList(new KeyValuePair("ipAddress",
+			ErrorMessage errorMessage = new ErrorMessage(400, "Bad Request", Arrays.asList(new KeyValuePair("ipAddress",
 					"A device with the ip address: " + device.getIpAddress() + " already exists")));
 
 			return Response.status(Status.BAD_REQUEST).entity(errorMessage).type(MediaType.APPLICATION_JSON).build();
@@ -100,31 +101,35 @@ public class DevicesResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response editDevice(@Valid Device updatedDevice, @PathParam("ipAddress") String ipAddress) {
 		Device device = deviceService.getDeviceById(ipAddress);
-		
-		if(device == null) {
+
+		if (device == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
-		
-		if(!updatedDevice.ipDetailsSet()) {
-			ErrorMessage errorMessage = new ErrorMessage(Arrays.asList(
-					new KeyValuePair("ipAddress", "ipAddress was resolved to " + device.getIpAddress()),
-					new KeyValuePair("host", "host was resolved to " + device.getHostName())));
-			
+
+		if (!updatedDevice.ipDetailsSet()) {
+			ErrorMessage errorMessage = new ErrorMessage(400, "Bad Request",
+					Arrays.asList(new KeyValuePair("ipAddress", "ipAddress was resolved to " + device.getIpAddress()),
+							new KeyValuePair("host", "host was resolved to " + device.getHostName())));
+
 			return Response.status(Status.BAD_REQUEST).entity(errorMessage).build();
 		}
-		
+
 		deviceService.updateDevice(device);
 		return Response.ok(device).build();
 	}
-	
+
 	@GET
 	@Path("/{ipAddress}/ping")
 	@Authorized
-	@Produces(MediaType.TEXT_PLAIN)
 	public Response pingDevice(@PathParam("ipAddress") String ipAddress) throws IOException {
 		Ping ping = new Ping(ipAddress);
+
+		if (!ping.isValid()) {
+			ErrorMessage error = new ErrorMessage(400, "Bad Request",
+					Arrays.asList(new KeyValuePair("ipAddress", "ipAddress is invalid")));
+			return Response.status(Status.BAD_REQUEST).entity(error).build();
+		}
 		new SystemProcessExecutor().run(ping);
-		
 		return Response.ok(ping.getResponse()).build();
 	}
 }

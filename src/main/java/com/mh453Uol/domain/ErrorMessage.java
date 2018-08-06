@@ -11,6 +11,16 @@ public class ErrorMessage {
     private String errorMessage;
 	private List<KeyValuePair> errors;
 	
+	public ErrorMessage() {
+		this.errors = new ArrayList<>();
+	}
+	
+	public ErrorMessage(int statusCode, String errorMessage, List<KeyValuePair> errors) {
+		this.statusCode = statusCode;
+		this.errorMessage = errorMessage;
+		this.errors = errors;
+	}
+	
 	public int getStatusCode() {
 		return statusCode;
 	}
@@ -25,14 +35,6 @@ public class ErrorMessage {
 
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
-	}
-
-	public ErrorMessage() {
-		this.errors = new ArrayList<>();
-	}
-	
-	public ErrorMessage(List<KeyValuePair> errors) {
-		this.errors = errors;
 	}
 	
 	public void addError(KeyValuePair keyValuePair) {
