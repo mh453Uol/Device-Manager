@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="utilities.PingingTest" time="0.02" errors="0" skipped="0">
+<testsuite tests="2" failures="0" name="utilities.PingingTest" time="3.112" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jre1.8.0_141\bin"/>
@@ -27,7 +27,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\User\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf3802438543700004802.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\User\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf2930413730935677059.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jre1.8.0_141\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jre1.8.0_141/bin/server;C:/Program Files/Java/jre1.8.0_141/bin;C:/Program Files/Java/jre1.8.0_141/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jre1.8.0_141\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\DTS\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;C:\Program Files\TortoiseSVN\bin;C:\Gradle\gradle-4.3.1\bin;C:\Program Files (x86)\AppHarbor;C:\TDM-GCC-64\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Users\User\bin\Sencha\Cmd\6.6.0.13;C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin;C:\Users\User\Desktop\software\apache-maven-3.5.4\bin;C:\Users\User\AppData\Local\Programs\Python\Python36-32\Scripts\;C:\Users\User\AppData\Local\Programs\Python\Python36-32\;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\User\AppData\Local\Microsoft\WindowsApps;C:\Program Files\West Wind WebSurge;C:\Users\User\AppData\Roaming\npm;C:\Program Files\Java\jdk1.8.0_171\bin;;C:\Users\User\Desktop;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -61,6 +61,6 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="utilities.PingingTest" name="Ping_WhereIpAddressIsValid_IsValidReturnsFalse" time="0.019"/>
-  <testcase classname="utilities.PingingTest" name="Ping_WhereIpIsValid_ReturnsPayload" time="0.001"/>
+  <testcase classname="utilities.PingingTest" name="Ping_WhereIpAddressIsValid_IsValidReturnsFalse" time="0.025"/>
+  <testcase classname="utilities.PingingTest" name="Ping_WhereIpIsValid_ReturnsPayload" time="3.087"/>
 </testsuite>

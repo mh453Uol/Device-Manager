@@ -2,12 +2,15 @@ package com.mh453Uol.database;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.UUID;
 
 import com.mh453Uol.domain.Device;
+import com.mh453Uol.domain.User;
 
 public class InMemoryDatabase {
 	public static HashMap<String, Device> devices = dummyDevices();
-
+	public static HashMap<UUID, User> users = dummyUsers();
+			
 	private static HashMap<String, Device> dummyDevices() {
 		HashMap<String, Device> devices = new HashMap<>();
 		
@@ -16,6 +19,18 @@ public class InMemoryDatabase {
 		devices.put("57.69.102.32",new Device("secret server", "57.69.102.32", "vm box"));
 		
 		return devices;
+	}
+	
+	private static HashMap<UUID, User> dummyUsers(){
+		HashMap<UUID, User> users = new HashMap<>();
+		
+		User u1 = new User("tom@uol.le.ac.uk","t$$m");
+		User u2 = new User("samiyusuf@google.com","google");
+		
+		users.put(u1.getId(),u1);
+		users.put(u2.getId(),u2);
+		
+		return users;
 	}
 	
 	private static String generateRandomIpAddress() {

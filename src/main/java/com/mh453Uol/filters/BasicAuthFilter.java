@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.SecurityContext;
@@ -13,10 +14,15 @@ import javax.ws.rs.ext.Provider;
 
 import org.glassfish.jersey.internal.util.Base64;
 
+import com.mh453Uol.domain.ErrorMessage;
+import com.mh453Uol.domain.User;
+import com.mh453Uol.services.UserService;
+
 @Provider
 @Authorized
 public class BasicAuthFilter implements ContainerRequestFilter {
-
+	private UserService userService = new UserService();
+	
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 		// header contains the following {Authorization "Basic Username:Password"} where
@@ -34,18 +40,25 @@ public class BasicAuthFilter implements ContainerRequestFilter {
 			String[] credentials = decodedToken.split(":");
 
 			if (credentials.length == 2) {
-				final String username = credentials[0];
+				final String email = credentials[0];
 				final String password = credentials[1];
 
-				requestContext.setSecurityContext(getSecurityContext(requestContext, username));
-
-				return;
+				if(!email.isEmpty() && !password.isEmpty()) {
+					User user = userService.validateCredientials(email, password);
+					
+					if(user != null) {
+						requestContext.setSecurityContext(getSecurityContext(requestContext, email));
+						return;
+					}
+				}
 			}
-
 		}
 
 		// if we reach here the headers are incorrect
-		Response unAuthorized = Response.status(Status.UNAUTHORIZED).entity("User not authorized").build();
+		Response unAuthorized = Response.status(Status.UNAUTHORIZED)
+					.type(MediaType.APPLICATION_JSON)
+					.entity(new ErrorMessage(401,"User not authorized"))
+					.build();
 
 		requestContext.abortWith(unAuthorized);
 	}
