@@ -16,6 +16,8 @@ public class Device {
 	@Optional
 	private String hostName;
 	
+	private User user;
+	
 	public Device() {
 		
 	}
@@ -47,5 +49,11 @@ public class Device {
 	}
 	public boolean ipDetailsSet() {
 		return ipAddress != null || hostName != null;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

@@ -15,7 +15,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.ws.rs.core.SecurityContext;
 
 import com.mh453Uol.domain.Device;
@@ -70,7 +69,7 @@ public class DevicesResource {
 
 			return Response.status(Status.BAD_REQUEST).entity(errorMessage).type(MediaType.APPLICATION_JSON).build();
 		}
-
+		
 		deviceService.addDevice(device);
 
 		return Response.status(Status.CREATED).type(MediaType.APPLICATION_JSON).entity(device).build();
@@ -113,7 +112,7 @@ public class DevicesResource {
 
 			return Response.status(Status.BAD_REQUEST).entity(errorMessage).build();
 		}
-
+		System.out.println(securityContext.getUserPrincipal());
 		deviceService.updateDevice(device);
 		return Response.ok(device).build();
 	}

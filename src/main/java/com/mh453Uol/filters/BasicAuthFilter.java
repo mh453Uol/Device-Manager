@@ -47,7 +47,7 @@ public class BasicAuthFilter implements ContainerRequestFilter {
 					User user = userService.validateCredientials(email, password);
 					
 					if(user != null) {
-						requestContext.setSecurityContext(getSecurityContext(requestContext, email));
+						requestContext.setSecurityContext(getSecurityContext(requestContext, user));
 						return;
 					}
 				}
@@ -63,13 +63,13 @@ public class BasicAuthFilter implements ContainerRequestFilter {
 		requestContext.abortWith(unAuthorized);
 	}
 
-	public SecurityContext getSecurityContext(ContainerRequestContext requestContext, String username) {
+	public SecurityContext getSecurityContext(ContainerRequestContext requestContext, User user) {
 		final SecurityContext currentSecurityContext = requestContext.getSecurityContext();
 		return new SecurityContext() {
 			//getting the username in resources classes
 			@Override
 			public Principal getUserPrincipal() {
-				return () -> username;
+				return () -> user.getEmail();
 			}
 
 			@Override
